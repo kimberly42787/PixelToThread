@@ -47,4 +47,26 @@ def apply_kmeans(img, num_colors):
 
     #Replace pixels with clusteres centers
     clustered = palette[labels].reshape(img.shape)
+
     return clustered, palette
+
+def map_to_dmc(clustered_img, palette_df):
+    palette_df = palette_df.rename(columns={
+        "Red":"K_Red",
+        "Green": "K_Green",
+        "Blue": "K_Blue",
+        "Red.1":"DMC_Red",
+        "Green.1":"DMC_Green",
+        "Blue.1": "DMC_Blue"
+    })
+
+    dmc_img = clustered_img.copy()
+
+    for _, row in palette_df.iterrows():
+        k_rgb = (row["K_Red"], row["K_Green"], row["K_Blue"])
+        dmc_rgb = (row["DMC_Red"], row["DMC_Green"], row["DMC_Blue"])
+
+        mask = (clustered_img == k_rgb).all(axis=2)
+        dmc_img[mask] = dmc_rgb
+
+    return dmc_img
