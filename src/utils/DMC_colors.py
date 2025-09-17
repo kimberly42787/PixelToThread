@@ -1,5 +1,11 @@
 import pandas as pd
 
+def scrape_dmc_colors()
+
+
+
+
+
 url = "https://dmc.crazyartzone.com/dmc_to_hex.php?color="
 
 tables = pd.read_html(url)
