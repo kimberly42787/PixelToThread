@@ -1,7 +1,6 @@
 from sklearn.cluster import KMeans
 import numpy as np
 
-
 class applyKmeans:
 
     def quantize_Kmeans(self, img, n_colors):
